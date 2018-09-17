@@ -1,56 +1,145 @@
+<html lang="en" ng-app="myApp">
+  <head>
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="222857293073-tovmd1ep0su9akh15sj5ccr9a5dvgf9o.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js"></script>
 
-<!DOCTYPE html>
-<html lang="en" ng-app="Lab1">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js" type="application/javascript"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-sanitize.js"></script>
-    <title>Who is Team 11-1</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./css/bootstrap-3.3.7-dist/css/bootstrap.css">
-    <script src="./food.js"></script>
-
     <style type="text/css">
         body {
-           background-color: #cfebfd; 
+            background-color: #3d5266;
         }
-        .login-display {
-            background: #ececec;
-            width: 200px;
-            padding: 1.5em;
-            margin-left: 20px;
-            border: 1px black solid;
-            border-radius: 5px;
-            display: table;
-            margin-right: auto;
-            margin-left: auto;
-        }
-        .login-form {
-            display: table;
-            margin-right: auto;
-            margin-left: auto;
-        }
-    </style>
-</head>
 
-<body ng-app="LoginApplication" ng-controller="LoginController">
-    <div class="jumbotron">
-        <h1 class="text-center">Who is Team 11-1</h1>          
+        .center-google {
+            display: table;
+            margin-right: auto;
+            margin-left: auto;
+        }
+        .vertical-center {
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .login-style {
+            background-color: #3d5266;
+        }
+
+        .light-gray {
+            background-color: #3d5266; 
+        }
+
+        h1 {
+            color: white !important;
+        }
+       
+
+        
+    </style>
+  </head>
+  <body onload="loginRedirect()">
+    <script type="text/ng-template" id="pages/home.html">
+        <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                  <div class="navbar-header">
+                    <a class="navbar-brand" href="">Team 11-1</a>
+                  </div>
+                  <ul class="nav navbar-nav">
+                    <li class="active"><a href="#/home">Home</a></li>
+                    <li><a href="#/about">About</a></li>
+                    <li><a href="#/contact">Contact</a></li>
+                  </ul>
+                  <button class="btn btn-primary navbar-btn pull-right" onclick="signOut()">Logout</button>
+                </div>
+              </nav>
+              <h3>{{message}}</h3>
+    </script>
+    <script type="text/ng-template" id="pages/about.html">
+        <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                  <div class="navbar-header">
+                    <a class="navbar-brand" href="">Team 11-1</a>
+                  </div>
+                  <ul class="nav navbar-nav">
+                    <li><a href="#/home">Home</a></li>
+                    <li class="active"><a href="#/about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                  </ul>
+                  <button class="btn btn-primary navbar-btn pull-right" onclick="signOut()">Logout</button>
+                </div>
+              </nav>
+        <h3>{{message}}</h3>
+    </script>
+
+    <script type="text/ng-template" id="pages/contact.html">
+        <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                  <div class="navbar-header">
+                    <a class="navbar-brand" href="">Team 11-1</a>
+                  </div>
+                  <ul class="nav navbar-nav">
+                    <li><a href="#/home">Home</a></li>
+                    <li><a href="#/about">About</a></li>
+                    <li class="active"><a href="#/contact">Contact</a></li>
+                  </ul>
+                  <button class="btn btn-primary navbar-btn pull-right" onclick="signOut()">Logout</button>
+                </div>
+              </nav>
+        <h3>{{message}}</h3>
+    </script>
+
+    
+    <script type="text/ng-template" id="pages/login.html">
+        <h1 class="text-center">Login</h1>
+        <div class="g-signin2 center-google" data-width="300" data-onsuccess="onSignIn"></div>
+        <div class="container vertical-center ">
+                <div class="row">
+                        <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <div class="login-box well login-style">
+                            <div class="jumbotron light-gray"> 
+                                <h1 class="text-center">Login</h1>
+                            </div>
+                            <div class="g-signin2 center-google" data-width="300" data-onsuccess="onSignIn"></div>
+                            <br><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </script>
+
+    
+    <script>
+      function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        localStorage.setItem("name", profile.getName());
+        localStorage.setItem("email", profile.getEmail());
+        localStorage.setItem("id", profile.getId());
+
+        var id_token = googleUser.getAuthResponse().id_token;
+        localStorage.setItem("id_token", id_token);
+        window.location.href = "#/home";
+      };
+
+      function signOut() {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+        console.log('User signed out.');
+        window.location.replace("#/login");
+        location.reload();
+        });      
+    }
+
+    function loginRedirect() {
+        window.location.href = "#/login";
+        
+        }   
+    </script>
+    <script src="./scripts/controller.js"></script>
+    <div ng-view>
+        <div ng-bind-html="innerHtml.html"></div>
     </div>
-    <div class="login-form">
-        <div class="form-group col-lg-7">
-            <input class="form-control" placeholder="Username" ng-model="username" />
-        </div>
-        <div class="form-group col-lg-7">
-            <input type="password" class="form-control" placeholder="Password" ng-model="password" />
-        </div>
-        <input class="btn btn-primary" type="submit" ng-click="submition(username, password)" value="Login" />
-    </div>
-    <br/><br/>
-    <div id="foodDisplay">
-        <p ng-bind-html="nutrition.html"></p>
-    </div>
-</body>
+  </body>
 </html>
