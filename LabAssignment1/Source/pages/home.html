@@ -1,0 +1,41 @@
+<div type="text/ng-template" id="pages/home.html">
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="">Team 11-1</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#/home">Home</a></li>
+                <li><a href="#/about">About</a></li>
+                <li><a href="#/contact">Contact</a></li>
+            </ul>
+            <button class="btn btn-primary navbar-btn pull-right" onclick="signOut()">Logout</button>
+        </div>
+    </nav>
+
+    <h3 class="text-center">{{message}}</h3>
+    <form class="form-inline text-center" ng-controller="SearchController">
+        <div class="form-group mx-sm-3 mb-2">
+            <label  class="sr-only">Search Text</label>
+            <input type="text" class="form-control" id="searchText" placeholder="Search text" ng-model="searchText">
+        </div>
+        <!-- Google Knowledge graph api to search for people-->
+        <button type="submit" class="btn btn-primary mb-2" ng-click="googleSearch()">Search</button>
+    </form>
+
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th></th>
+            <th></th>
+        </tr>
+       <!-- <tr>
+            <td>{{Name}}</td>
+            <td>{{description}}</td>
+            <td><input type="button" ng-click="showImage()" class="btn btn-primary"  value="Show Image"></td>
+        </tr>-->
+
+
+    </table>
+</div>

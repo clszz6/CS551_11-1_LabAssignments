@@ -5,141 +5,20 @@
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js"></script>
+    <script src="scripts/navigation.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <link rel="stylesheet" href="./css/bootstrap-3.3.7-dist/css/bootstrap.css">
-    <style type="text/css">
-        body {
-            background-color: #3d5266;
-        }
+    <link rel="stylesheet" href="./css/mainCss.css">
 
-        .center-google {
-            display: table;
-            margin-right: auto;
-            margin-left: auto;
-        }
-        .vertical-center {
-            position: relative;
-            top: 50%;
-            transform: translateY(-50%);
-        }
 
-        .login-style {
-            background-color: #3d5266;
-        }
-
-        .light-gray {
-            background-color: #3d5266; 
-        }
-
-        h1 {
-            color: white !important;
-        }
-       
-
-        
-    </style>
   </head>
   <body onload="loginRedirect()">
-    <script type="text/ng-template" id="pages/home.html">
-        <nav class="navbar navbar-inverse">
-                <div class="container-fluid">
-                  <div class="navbar-header">
-                    <a class="navbar-brand" href="">Team 11-1</a>
-                  </div>
-                  <ul class="nav navbar-nav">
-                    <li class="active"><a href="#/home">Home</a></li>
-                    <li><a href="#/about">About</a></li>
-                    <li><a href="#/contact">Contact</a></li>
-                  </ul>
-                  <button class="btn btn-primary navbar-btn pull-right" onclick="signOut()">Logout</button>
-                </div>
-              </nav>
-              <h3>{{message}}</h3>
-    </script>
-    <script type="text/ng-template" id="pages/about.html">
-        <nav class="navbar navbar-inverse">
-                <div class="container-fluid">
-                  <div class="navbar-header">
-                    <a class="navbar-brand" href="">Team 11-1</a>
-                  </div>
-                  <ul class="nav navbar-nav">
-                    <li><a href="#/home">Home</a></li>
-                    <li class="active"><a href="#/about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                  </ul>
-                  <button class="btn btn-primary navbar-btn pull-right" onclick="signOut()">Logout</button>
-                </div>
-              </nav>
-        <h3>{{message}}</h3>
-    </script>
 
-    <script type="text/ng-template" id="pages/contact.html">
-        <nav class="navbar navbar-inverse">
-                <div class="container-fluid">
-                  <div class="navbar-header">
-                    <a class="navbar-brand" href="">Team 11-1</a>
-                  </div>
-                  <ul class="nav navbar-nav">
-                    <li><a href="#/home">Home</a></li>
-                    <li><a href="#/about">About</a></li>
-                    <li class="active"><a href="#/contact">Contact</a></li>
-                  </ul>
-                  <button class="btn btn-primary navbar-btn pull-right" onclick="signOut()">Logout</button>
-                </div>
-              </nav>
-        <h3>{{message}}</h3>
-    </script>
-
-    
-    <script type="text/ng-template" id="pages/login.html">
-        <h1 class="text-center">Login</h1>
-        <div class="g-signin2 center-google" data-width="300" data-onsuccess="onSignIn"></div>
-        <div class="container vertical-center ">
-                <div class="row">
-                        <div class="col-md-3"></div>
-                    <div class="col-md-6">
-                        <div class="login-box well login-style">
-                            <div class="jumbotron light-gray"> 
-                                <h1 class="text-center">Login</h1>
-                            </div>
-                            <div class="g-signin2 center-google" data-width="300" data-onsuccess="onSignIn"></div>
-                            <br><br>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    </script>
-
-    
-    <script>
-      function onSignIn(googleUser) {
-        var profile = googleUser.getBasicProfile();
-        localStorage.setItem("name", profile.getName());
-        localStorage.setItem("email", profile.getEmail());
-        localStorage.setItem("id", profile.getId());
-
-        var id_token = googleUser.getAuthResponse().id_token;
-        localStorage.setItem("id_token", id_token);
-        window.location.href = "#/home";
-      };
-
-      function signOut() {
-        var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function () {
-        console.log('User signed out.');
-        window.location.replace("#/login");
-        location.reload();
-        });      
-    }
-
-    function loginRedirect() {
-        window.location.href = "#/login";
-        
-        }   
-    </script>
     <script src="./scripts/controller.js"></script>
+
     <div ng-view>
-        <div ng-bind-html="innerHtml.html"></div>
+        <div ng-bind-html="header.html"></div>
     </div>
   </body>
 </html>

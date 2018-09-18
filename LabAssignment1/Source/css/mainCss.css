@@ -1,0 +1,27 @@
+body {
+    background: url(https://abs.twimg.com/images/themes/theme1/bg.png);
+    background-size: cover;
+}
+
+.center-google {
+    display: table;
+    margin-right: auto;
+    margin-left: auto;
+}
+.vertical-center {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.login-style {
+    background-color: #3d5266;
+}
+
+.light-gray {
+    background-color: #3d5266;
+}
+
+h1 {
+    color: white !important;
+}

@@ -27,19 +27,39 @@ app.config(function($routeProvider) {
 });
 
     app.controller('HomeController', function($scope) {
-    $scope.message = 'Home';
+        $scope.message = "Google Knowledge Graph - People Search";
+
   });
 
   app.controller('ContactController', function($scope) {
-    $scope.message = 'Contact';
+    $scope.member1 = 'Member 1: Merwan Abdelmajeed - maagd4@mail.umkc.edu';
+    $scope.member2 = 'Member 47: Christian Skinner - clszz6@mail.umkc.edu';
+
   });
   
   app.controller('AboutController', function($scope) {
-    $scope.message = 'About';
+    $scope.message = 'This project is a simple search engine with the exact result needed without the hassle of irrelevant results';
   });
 
+app.controller('SearchController', function($scope) {
+    $scope.googleSearch = function(){
+
+        var service_url = "https://kgsearch.googleapis.com/v1/entities:search?query="+$scope.searchText+"&key=AIzaSyAMnpKEwGKIdzxMQNAaiYiTnrO6j0rmOtQ&limit=1&indent=True";
+        $.getJSON(service_url,null, function(response) {
+            $.each(response.itemListElement, function(i, element) {
+               $('.table').append('<tr><td>'
+                   + element['result']['name']
+                   +'</td><td>'+element['result']['description']
+                   +'</td><td><input type="button" class="btn btn-primary" value="show Image"/></td></tr>');
+            });
+        });
+    }
+});
+
+
+
   app.controller('LoginController', function($scope, $http) {
-    $scope.innerHtml = {
+   $scope.innerHtml = {
         html: "<div class='container vertical-center'>" +
         "<div class='row'>" +
         "<div class='col-md-3'></div>" +
